@@ -1,3 +1,6 @@
 .env
 dist
 node_modules
+src/utils/ids/major.json
+src/private
+src/utils/places.json

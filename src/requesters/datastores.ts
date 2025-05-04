@@ -1,7 +1,7 @@
 import axios from "axios";
 import  { CONFIGURATION } from "./experience";
 import { BASE_URL } from "../utils/urls";
-import { KEYINFO } from "../utils/interfaces/datastores";
+import { DATASTORE_ENTRIES, KEYINFO } from "../utils/interfaces/datastores";
 
 
 
@@ -48,6 +48,24 @@ export default class DataStore {
       BASE_URL +
       `/cloud/v2/universes/${UNIVERSE_ID}/data-stores/${NAME}/entries`
     );
+  }
+
+  public async listKeys(maxPageSize: number, pageToken: string = "", filter: string = "", showDeleted: boolean = true, ) {
+    try {
+      const response = await axios.get<DATASTORE_ENTRIES>(this._getURL(), {
+        headers: this._getHeaders(),
+        params: {
+          maxPageSize: maxPageSize,
+          pageToken: pageToken,
+          filter: filter,
+          showDeleted: showDeleted,
+        }
+      })
+       
+      return response.data
+    } catch (err) {
+      console.error(err.response)
+    }
   }
 
   public async get<T = unknown>(key: string): Promise<KEYINFO<T> | null> {

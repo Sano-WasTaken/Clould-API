@@ -19,3 +19,8 @@ export interface KEYINFO<T = unknown> {
   attributes: object;
   value: T;
 }
+
+export interface DATASTORE_ENTRIES {
+  dataStoreEntries: KEYINFO[];
+  nextPageToken: string;
+}
